@@ -6,7 +6,7 @@ import tifffile
 
 
 def convert_2d_image_to_nifti(input_filename: str, output_filename_truncated: str, spacing=(999, 1, 1),
-                              transform=None, is_seg: bool = False) -> None:
+                              transform=None, is_seg: bool = False, is_gray: bool = False) -> None:
     """
     Reads an image (must be a format that it recognized by skimage.io.imread) and converts it into a series of niftis.
     The image can have an arbitrary number of input channels which will be exported separately (_0000.nii.gz,
@@ -29,7 +29,7 @@ def convert_2d_image_to_nifti(input_filename: str, output_filename_truncated: st
     :param spacing:
     :return:
     """
-    img = io.imread(input_filename)
+    img = io.imread(input_filename, as_gray=is_gray)
 
     if transform is not None:
         img = transform(img)
