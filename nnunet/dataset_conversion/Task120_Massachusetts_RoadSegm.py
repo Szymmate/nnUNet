@@ -60,7 +60,7 @@ if __name__ == '__main__':
 
         # the labels are stored as 0: background, 255: road. We need to convert the 255 to 1 because nnU-Net expects
         # the labels to be consecutive integers. This can be achieved with setting a transform
-        convert_2d_image_to_nifti(input_segmentation_file, output_seg_file, is_seg=True,
+        convert_2d_image_to_nifti(input_segmentation_file, output_seg_file, is_seg=True, is_gray=True,
                                   transform=lambda x: (x == 255).astype(int))
 
     # now do the same for the test set
@@ -76,7 +76,7 @@ if __name__ == '__main__':
         output_seg_file = join(target_labelsTs, unique_name)
 
         convert_2d_image_to_nifti(input_image_file, output_image_file, is_seg=False)
-        convert_2d_image_to_nifti(input_segmentation_file, output_seg_file, is_seg=True,
+        convert_2d_image_to_nifti(input_segmentation_file, output_seg_file, is_seg=True, is_gray=True,
                                   transform=lambda x: (x == 255).astype(int))
 
     # finally we can call the utility for generating a dataset.json
